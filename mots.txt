@@ -4,4 +4,8 @@ tabouret
 avion
 soleil
 bateau
-arbre
+foret
+etoile
+ordinateur
+papier
+table

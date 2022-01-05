@@ -1,6 +1,7 @@
 <form method="post">
-    <input type="text" name="suggestion">
-    <input type="submit">
+    <label for="ajout">Ajouter un mot :</label>
+    <input type="text" name="ajout">
+    <input type="submit"><br>
 </form>
 
 <?php
@@ -9,9 +10,8 @@ include("functions.php");
 $mots = [];
 $fn = "mots.txt";
 
-if(isset($_POST["suggestion"]))
+if(isset($_POST["ajout"]))
 {
-    add_word($_POST["suggestion"], $fn, "\n");
+    add_word($_POST["ajout"], $fn, "\n");
 }
-
 ?>
