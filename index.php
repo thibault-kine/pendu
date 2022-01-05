@@ -12,17 +12,25 @@ if(!isset($_SESSION["mots"]))
     $_SESSION["mots"] = $mots;
 }
 
-$rand_word = $_SESSION["mots"][rand(0, sizeof($mots)-1)];
-var_dump($rand_word);
-
-for($i = 0; $i < strlen($rand_word); $i++)
+if(!isset($_SESSION["answer"]))
 {
-    echo "_ ";
+    $_SESSION["answer"] = $_SESSION["mots"][rand(0, sizeof($mots)-1)];
+}
+
+var_dump($_SESSION["answer"]);
+
+for($i = 0; $i < strlen($_SESSION["answer"]); $i++)
+{
+    echo " _ ";
 }
 ?>
 
-<form method="post">
-    <label for="input">Entrez une lettre :</label>
-    <input type="text" maxlength="1" name="input">
+<form method="get">
+    <label for="guess">Entrez une lettre :</label>
+    <input type="text" maxlength="1" name="guess">
     <input type="submit">
 </form>
+
+<?php
+
+?>
