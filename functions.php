@@ -27,7 +27,10 @@ function add_word(string $word, string $filename, string $separator)
         // ajoute un espace et écrit le mot
         fwrite($file, $separator.$word);
     }
+}
 
-    var_dump($liste_mots);
+function get_words($filename)
+{
+    return explode("\n", file_get_contents($filename));
 }
 ?>
