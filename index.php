@@ -18,11 +18,16 @@ if(!isset($_SESSION["answer"]))
 }
 
 var_dump($_SESSION["answer"]);
+$mystery = array();
 
 for($i = 0; $i < strlen($_SESSION["answer"]); $i++)
 {
-    echo " _ ";
+    array_push($mystery, " _ ");
 }
+
+$mystery_str = implode($mystery);
+var_dump($mystery_str);
+echo $mystery_str;
 ?>
 
 <form method="get">
@@ -32,5 +37,15 @@ for($i = 0; $i < strlen($_SESSION["answer"]); $i++)
 </form>
 
 <?php
-
+foreach($_SESSION["answer"] as $key => $val)
+{
+    if($_POST["guess"] == $val)
+    {
+        $mystery_str[$key] = $_POST["guess"];
+    }
+    else
+    {
+        echo "Faux !";
+    }
+}
 ?>
