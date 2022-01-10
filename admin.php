@@ -1,4 +1,5 @@
 <h1>ADMIN.PHP</h1>
+
 <form method="post">
     <label for="ajout">Ajouter un mot :</label>
     <input type="text" name="ajout">

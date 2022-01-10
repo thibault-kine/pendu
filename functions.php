@@ -1,4 +1,23 @@
 <?php
+// ===== FUNCTION add_word(string $word, string $filename, string $separator)
+// string $word = the word you want to add to the file
+// string $filename = the file's name + extension (ex: "my_file.txt")
+// string $separator = the character/string that separates each word in the file
+//
+// This function opens the file according to $filename, creates an array containing every
+// word from the file according to the separator,
+// (ex: "my_file.txt" = "tree, sun, plane" 
+//  becomes 
+//  $array = {
+//      0 => "tree",
+//      1 => "sun",
+//      2 => "plane"
+//  };
+//  with $separator as ",")
+// removes blank spaces from $word and cycles through the file.
+//
+// RETURN VALUE = void
+
 function add_word(string $word, string $filename, string $separator)
 {
     $file = fopen($filename, "r+");
@@ -29,8 +48,38 @@ function add_word(string $word, string $filename, string $separator)
     }
 }
 
-function get_words($filename)
+// ===== FUNCTION get_words(string $filename)
+// string $filename = the file's name + extension (ex: "my_file.txt")
+//
+// This function simply returns a string containing a list of the word.
+//
+// RETURN VALUE = string
+function get_words(string $filename)
 {
     return explode("\n", file_get_contents($filename));
+}
+
+// ===== FUNCTION check(string $guess, array $answer) =====
+// string $guess = the letter you check for
+// array $answer = an array made from a string containing the word you have to guess
+//
+// This function cycles trough every character of the $answer array to check if
+// there are instances of $guess in $answer.
+//
+// RETURN VALUE = int
+
+function check(string $guess, array $answer, array $mystery)
+{
+    for($i = 0; $i < sizeof($mystery); $i++)
+    {
+        if($guess == $answer[$i])
+        {
+            return $i;
+        }
+        else
+        {
+            break;
+        }
+    }
 }
 ?>
