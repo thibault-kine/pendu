@@ -40,7 +40,7 @@ foreach(MYSTERE as $k => $v)
 echo $mystere;
 
 // créé une variable qui contiendra les lettres devinées
-$guessed = array();
+$_SESSION["guessed"] = array();
 
 echo "<form method='get' id='letters'>";
 foreach($letters as $k => $v)
@@ -49,7 +49,10 @@ foreach($letters as $k => $v)
 }
 echo "</form>";
 
-if($_POST["reroll"])
+array_push($_SESSION["guessed"], $_GET["choice"]);
+var_dump($_SESSION["guessed"]);
+
+if(isset($_POST["reroll"]) && $_POST["reroll"])
 {
     header("location: index.php");
 }
