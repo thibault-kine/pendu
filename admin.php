@@ -1,27 +1,45 @@
-<h1>ADMIN.PHP</h1>
+<?php
+include "header.php";
+?>
 
 <form method="post">
-    <label for="ajout">Ajouter un mot :</label>
-    <input type="text" name="ajout">
-    <input type="submit"><br>
+    <label for="newword">Nouveau mot :</label>
+    <input type="text" name="newword" id="">
+    <input type="submit" name="submit" value="Ajouter">
 </form>
 
+<table>
+    <thead>
+        <tr>
+            <th colspan="3">Liste des mots</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>ID</td>
+            <td>Mot</td>
+            <td>Supprimer</td>
+        </tr>
+        <?php
+        foreach(WORDS as $k => $v)
+        {
+            echo "
+            <tr>
+                <td>".$k."</td>
+                <td>".$v."</td>
+                <td><a href='delete.php?id=".$k."'>Supprimer</a></td>
+            </tr>
+            ";
+        }
+        ?>
+    </tbody>
+</table>
+
 <?php
-session_start();
-include("functions.php");
-
-$fn = "mots.txt";
-$mots = get_words($fn);
-
-if(!isset($_SESSION["mots"]))
+if(!empty($_POST["newword"]))
 {
-    $_SESSION["mots"] = $mots;
+    $filename = "mots.txt";
+    $newWord = "\n".$_POST["newword"];
+    file_put_contents($filename, $newWord, FILE_APPEND | FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 }
-
-if(isset($_POST["ajout"]))
-{
-    add_word($_POST["ajout"], $fn, "\n");
-}
-
-var_dump($_SESSION["mots"]);
 ?>

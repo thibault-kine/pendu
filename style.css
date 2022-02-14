@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "Tommy";
+    src: url(fonts/Tommy/MADE\ TOMMY\ Regular_PERSONAL\ USE.otf);
+}
+
+#letters
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 65%;
+}
+
+.letter
+{
+    padding: 1em;
+    font-family: "Tommy";
+    font-weight: bold;
+    font-size: 22;
+    text-transform: uppercase;
+}

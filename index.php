@@ -1,55 +1,56 @@
-<h1>INDEX.PHP</h1>
+<?php
+include "header.php";
+?>
+
+<form method='post'>
+    <input type="submit" name="reroll" value="Reroll!">
+</form>
 
 <?php
-session_start();
-include("functions.php");
+$letters = [
+    "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
+    "t", "u", "v", "w", "x", "y", "z"
+];
 
-// ===== ACCESSEURS ===== //
-$fn = "mots.txt";
-$mots = get_words($fn);
-
-// ===== SETTERS ===== //
-if(!isset($_SESSION["mots"]))
+if(!isset($motMystere))
 {
-    $_SESSION["mots"] = $mots;
-}
-if(!isset($_SESSION["answer"]))
-{
-    $_SESSION["answer"] = $_SESSION["mots"][rand(0, sizeof($mots)-1)];
-}
-$str_answer = implode($_SESSION["answer"]);
-if(!isset($_SESSION["correct"]))
-{
-    $_SESSION["correct"] = array();
+    // choisis l'id d'un mot au hasard, c'est ce mot qu'on devra deviner
+    $randID = random_int(0, sizeof(WORDS) - 1);
+    // le mot mystere est choisi en fonction de l'id aléatoire
+    $motMystere = WORDS[$randID];
 }
 
-// ===== DEBUG: Montrer le résultat ===== //
-var_dump($_SESSION["answer"]);
+// déclare le mot mystere en tant qu'array constante
+define("MYSTERE", str_split($motMystere));
+var_dump(MYSTERE);
 
-// ===== SET THE MYSTERY ARRAY ===== //
-$mystery = array();
-for($i = 0; $i < strlen($str_answer); $i++)
+// pour chaque lettre du mot mystere, ajoute et affiche un underscore
+$mystere = "";
+foreach(MYSTERE as $k => $v)
 {
-    array_push($mystery, " _ ");
+    if($v == "-")
+    {
+        $mystere .= " - ";
+    }
+    else
+    {
+        $mystere .= " _ ";
+    }
 }
+echo $mystere;
 
-// ===== HTML ===== //
-echo '
-<form method="get">
-    <label for="guess">Entrez une lettre :</label>
-    <input type="text" maxlength="1" name="guess">
-    <input type="submit">
-</form>
-';
+// créé une variable qui contiendra les lettres devinées
+$guessed = array();
 
-// ===== SET THE GUESS VARIABLE ===== //
-$_SESSION["guess"] = $_GET["guess"];
-var_dump($_SESSION["guess"]);
-$letterNb = check($_SESSION["guess"], $_SESSION["answer"], $mystery);
+echo "<form method='get' id='letters'>";
+foreach($letters as $k => $v)
+{
+    echo "<input type='submit' value='".$v."' name='choice' class='letter'>";
+}
+echo "</form>";
 
-// ===== AFFICHE LE GUESS SUR LA VARIABLE MYSTERY ===== //
-// TODO: meme si on met une lettre incorrecte, il l'affiche quand meme et la met a la fin de l'array
-$mystery[$letterNb] = $_SESSION["guess"];
-
-echo implode($mystery);
+if($_POST["reroll"])
+{
+    header("location: index.php");
+}
 ?>

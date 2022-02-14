@@ -1,11 +1,7 @@
+
 arbre
-ballon
-tabouret
-avion
 soleil
-bateau
-foret
-etoile
-ordinateur
-papier
-table
+montagne
+ballon
+voiture
+arc-en-ciel
